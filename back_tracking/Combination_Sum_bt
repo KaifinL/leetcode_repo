@@ -1,0 +1,29 @@
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> result = new ArrayList();
+        List<Integer> temp = new ArrayList();
+        bt_helper(result, temp, candidates, target, 0);
+        return result;
+    }
+    
+    private void bt_helper(List<List<Integer>> result, List<Integer> temp, int []candidates, int target, int start_index) {
+        if (target == 0) {
+            result.add(new ArrayList<>(temp));
+        } else if (target > 0) {
+            for (int i = start_index; i < candidates.length; i++) {
+                temp.add(candidates[i]);
+                bt_helper(result, temp, candidates, target-candidates[i], i);
+                temp.remove(temp.size()-1);
+            }
+        }
+    }
+}
+
+/*
+
+This is a typical backtracking problem. The difficulty here is that no duplicates are allowed. 
+A more detailed explanation walk through is here:
+https://www.youtube.com/watch?v=GBKI9VSKdGg
+
+*/
